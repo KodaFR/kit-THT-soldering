@@ -1,0 +1,9 @@
+# Archives et fichiers de sauvegarde/historique générés
+*.zip
+**/*-backups/
+**/.history/
+
+# Fichiers temporaires du projet KiCad
+**/fp-info-cache
+*.kicad_prl
+*.lck
