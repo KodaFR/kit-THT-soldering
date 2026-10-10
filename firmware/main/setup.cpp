@@ -12,4 +12,12 @@ void setupPins(){
     pinMode(BTN_LEFT, INPUT_PULLUP);
     pinMode(BTN_SELECT, INPUT_PULLUP);
     pinMode(BTN_RIGHT, INPUT_PULLUP);
+
+    pinMode(PINLEFT_R, OUTPUT);
+    pinMode(PINLEFT_G, OUTPUT);
+    pinMode(PINLEFT_B, OUTPUT);
+    pinMode(PINRIGHT_R, OUTPUT);
+    pinMode(PINRIGHT_G, OUTPUT);
+    pinMode(PINRIGHT_B, OUTPUT);
+
     }

@@ -9,10 +9,10 @@
 #define BUZZER_P 13
 #define BUZZER_M 14
 
-#define LED1_R 4
-#define LED1_G 5
-#define LED1_B 6
+#define PINLEFT_R 4
+#define PINLEFT_G 5
+#define PINLEFT_B 6
 
-#define LED2_R 15
-#define LED2_G 16
-#define LED2_B 17
+#define PINRIGHT_R 15
+#define PINRIGHT_G 16
+#define PINRIGHT_B 17
