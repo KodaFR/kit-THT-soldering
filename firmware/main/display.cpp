@@ -1,10 +1,10 @@
-#include "display.h"
-#include "wire.h"
-#include "Adafruit_GFX.h"
-#include "Adafruit_SH110X.h"
-#include "config.h"
-#include "statemanager.h"
+#include "../lib/display/display.h"
+#include <Wire.h>
+#include <Adafruit_GFX.h>
+#include <Adafruit_SH110X.h>
+#include "../include/config.h"
 #include <stdio.h>
+#include "../include/pins.h"
 
 Adafruit_SH1106G display = Adafruit_SH1106G(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 
@@ -14,7 +14,7 @@ void initscreen(){
 }
 
 
-void drawBitmapPage(const unsigned char bitmap[1024], const __FlashStringHelper *label){
+void drawBitmapPage(const unsigned char bitmap[1024]){
   display.clearDisplay();
   display.drawBitmap(
     0, 0,
@@ -23,3 +23,5 @@ void drawBitmapPage(const unsigned char bitmap[1024], const __FlashStringHelper 
     64,
     SH110X_WHITE
   );
+  display.display();
+}
