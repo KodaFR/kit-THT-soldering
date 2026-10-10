@@ -1,8 +1,8 @@
 #include <Arduino.h>
 
-#include "../include/statemanager.h"
-#include "../lib/display/display.h"
-#include "../lib/display/bitmaps/kodalogo.h"
+#include "src/include/statemanager.h"
+#include "src/display/display.h"
+#include "src/display/bitmaps/kodalogo.h"
 
 AppState current_state = AppState::STATE_BOOT;
 

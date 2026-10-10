@@ -1,7 +1,7 @@
-#include "../include/setup.h"
-#include "../include/config.h"
-#include "../include/statemanager.h"
-#include "../lib/display/display.h"
+#include "src/include/setup.h"
+#include "src/include/config.h"
+#include "src/include/statemanager.h"
+#include "src/display/display.h"
 void setup() {
   Serial.begin(BAUDRATE);
   Serial.println("COMMUNICATION EN SERIE INITIALISE");

@@ -1,8 +1,8 @@
 #include <Arduino.h>
 #include <Wire.h>
 
-#include "../include/pins.h"
-#include "../include/setup.h"
+#include "src/include/pins.h"
+#include "src/include/setup.h"
 
 void setupI2C(){
     Wire.begin(SDA_PIN, SCL_PIN);
