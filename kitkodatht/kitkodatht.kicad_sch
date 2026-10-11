@@ -1725,7 +1725,7 @@
 				)
 			)
 		)
-		(property "Footprint" "easyeda2kicad:SW-SMD_L6.0-W6.0-LS6.6"
+		(property "Footprint" "Button_Switch_THT:SW_PUSH_6mm"
 			(at 95.25 160.02 0)
 			(hide yes)
 			(show_name no)
@@ -1805,7 +1805,7 @@
 				)
 			)
 		)
-		(property "Footprint" "easyeda2kicad:SW-SMD_L6.0-W6.0-LS6.6"
+		(property "Footprint" "Button_Switch_THT:SW_PUSH_6mm"
 			(at 142.24 160.02 0)
 			(hide yes)
 			(show_name no)
@@ -3017,7 +3017,7 @@
 				)
 			)
 		)
-		(property "Footprint" "easyeda2kicad:SW-SMD_L6.0-W6.0-LS6.6"
+		(property "Footprint" "Button_Switch_THT:SW_PUSH_6mm"
 			(at 52.07 160.02 0)
 			(hide yes)
 			(show_name no)
