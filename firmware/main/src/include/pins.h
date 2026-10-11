@@ -6,8 +6,7 @@
 #define BTN_RIGHT 11
 #define BTN_SELECT 12
 
-#define BUZZER_P 13
-#define BUZZER_M 14
+#define BUZZER 13
 
 #define PINLEFT_R 4
 #define PINLEFT_G 5

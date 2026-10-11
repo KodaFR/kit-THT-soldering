@@ -2,6 +2,8 @@
 #include "src/include/config.h"
 #include "src/include/statemanager.h"
 #include "src/display/display.h"
+#include "src/buzzer/buzzer.h"
+
 void setup() {
   Serial.begin(BAUDRATE);
   Serial.println("COMMUNICATION EN SERIE INITIALISE");
@@ -11,6 +13,7 @@ void setup() {
   Serial.println("GPIO INITIALISES");
   initscreen();
   Serial.println("ECRAN INITIALISEE");
+  playbootMelody();
 }
 
 void loop() {

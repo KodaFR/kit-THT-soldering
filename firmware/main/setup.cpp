@@ -20,4 +20,6 @@ void setupPins(){
     pinMode(PINRIGHT_G, OUTPUT);
     pinMode(PINRIGHT_B, OUTPUT);
 
+    pinMode(BUZZER, OUTPUT);
+
     }
