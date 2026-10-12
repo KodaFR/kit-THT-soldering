@@ -3,6 +3,7 @@
 #include "src/include/statemanager.h"
 #include "src/display/display.h"
 #include "src/buzzer/buzzer.h"
+#include "WiFi.h"
 
 void setup() {
   Serial.begin(BAUDRATE);
@@ -12,8 +13,9 @@ void setup() {
   setupPins();
   Serial.println("GPIO INITIALISES");
   initscreen();
-  Serial.println("ECRAN INITIALISEE");
+  Serial.println("ECRAN INITIALISE");
   playbootMelody();
+  WiFi.mode(WIFI_STA);
 }
 
 void loop() {
