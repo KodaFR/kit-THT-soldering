@@ -3914,7 +3914,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "5c1b8a11-0842-4e50-8b22-f7a9c4c11b3b")
-		(property "Reference" "D3"
+		(property "Reference" "D1"
 			(at 41.91 27.94 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3982,7 +3982,7 @@
 		(instances
 			(project "kitkodatht"
 				(path "/996050a9-bdfc-45b0-9fb7-0cb843c9c1c6"
-					(reference "D3")
+					(reference "D1")
 					(unit 1)
 				)
 			)
@@ -5192,7 +5192,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "ea4a86a2-947a-4d69-929d-0c85b0eba06a")
-		(property "Reference" "D4"
+		(property "Reference" "D2"
 			(at 85.09 27.94 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5260,7 +5260,7 @@
 		(instances
 			(project "kitkodatht"
 				(path "/996050a9-bdfc-45b0-9fb7-0cb843c9c1c6"
-					(reference "D4")
+					(reference "D2")
 					(unit 1)
 				)
 			)
