@@ -2821,10 +2821,6 @@
 		(uuid "05900ab7-510e-4458-afed-1bf29b78cc51")
 	)
 	(no_connect
-		(at 259.08 57.15)
-		(uuid "142fee5e-070d-4fae-ac7b-3cd4a1dc2c3f")
-	)
-	(no_connect
 		(at 259.08 110.49)
 		(uuid "273f83a6-1052-4314-8b5a-fc568b723d86")
 	)
@@ -2887,10 +2883,6 @@
 	(no_connect
 		(at 259.08 113.03)
 		(uuid "a8f92e9e-7b6b-49c2-9817-24f200225387")
-	)
-	(no_connect
-		(at 259.08 67.31)
-		(uuid "c1876a2c-8ff7-4f18-af6c-2cf7c928dbcf")
 	)
 	(no_connect
 		(at 259.08 95.25)
@@ -3207,7 +3199,7 @@
 		(uuid "22c08e25-ab5b-45e9-aaa6-ed4bf1e632ab")
 	)
 	(label "BTN_RIGHT"
-		(at 259.08 77.47 0)
+		(at 259.08 80.01 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3217,7 +3209,7 @@
 		(uuid "2a7ac785-1c34-49aa-ba46-efa157cbcfc6")
 	)
 	(label "BUZZER"
-		(at 259.08 82.55 0)
+		(at 259.08 67.31 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3306,7 +3298,7 @@
 		)
 		(uuid "977b2847-cef7-4715-a071-41c0ff37ed69")
 	)
-	(label "SDA"
+	(label "SCL"
 		(at 259.08 69.85 0)
 		(effects
 			(font
@@ -3347,7 +3339,7 @@
 		(uuid "b46ab75b-e571-4dde-bd65-71abdd20dc0c")
 	)
 	(label "BTN_SELECT"
-		(at 259.08 80.01 0)
+		(at 259.08 77.47 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3356,8 +3348,8 @@
 		)
 		(uuid "b8bc2e46-1652-439b-b3d7-f8c23713c6bc")
 	)
-	(label "SCL"
-		(at 259.08 72.39 0)
+	(label "SDA"
+		(at 259.08 57.15 0)
 		(effects
 			(font
 				(size 1.27 1.27)

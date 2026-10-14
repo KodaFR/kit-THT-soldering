@@ -3,10 +3,10 @@
 #define OLED_RESET -1
 
 #define BTN_LEFT 10
-#define BTN_RIGHT 11
-#define BTN_SELECT 12
+#define BTN_RIGHT 12
+#define BTN_SELECT 11
 
-#define BUZZER 13
+#define BUZZER 7
 
 #define PINLEFT_R 4
 #define PINLEFT_G 5
