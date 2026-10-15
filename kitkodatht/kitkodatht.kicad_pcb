@@ -1935,7 +1935,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "206bafc6-e457-462a-9157-b0b3268583bc")
+			(uuid "f046ddad-b1be-4d1b-b612-69b229872c95")
 			(effects
 				(font
 					(size 1.5 1.5)
@@ -1947,7 +1947,7 @@
 			(at 0.75 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "fa38fc49-d161-4cbb-86e2-76b225f6187e")
+			(uuid "13b96aab-c585-47f3-8d58-6e0b23648051")
 			(effects
 				(font
 					(size 1.5 1.5)
@@ -1959,7 +1959,7 @@
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "e9f308d1-94d6-4cdb-b93e-a4f7abef7758")
+			(uuid "58239496-61aa-49bf-8f97-d3037a7136ef")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1970,7 +1970,7 @@
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "a40a2744-9ed9-4c5a-9764-d078893de098")
+			(uuid "4e224c67-2906-4078-94a6-668a1fd6f6a8")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2624,7 +2624,7 @@
 		(units
 			(unit
 				(name "A")
-				(pins "1" "2" "3" "4")
+				(pins "2" "1" "3" "4")
 			)
 		)
 		(attr through_hole)
@@ -2768,8 +2768,8 @@
 			(drill 0.8)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
-			(net "GND")
-			(pinfunction "K_1")
+			(net "/RIGHT_LED_R")
+			(pinfunction "RA_1")
 			(pintype "passive")
 			(uuid "f6d475d0-f058-4bc4-a682-a2114fe0389e")
 		)
@@ -2779,8 +2779,8 @@
 			(drill 0.8)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
-			(net "/RIGHT_LED_R")
-			(pinfunction "RA_2")
+			(net "GND")
+			(pinfunction "K_2")
 			(pintype "passive")
 			(uuid "a9a400fe-4301-4056-a444-7c793290e5b0")
 		)
@@ -2828,7 +2828,7 @@
 		(property "Reference" "D1"
 			(at 0 -2.11 90)
 			(layer "F.SilkS")
-			(uuid "40ebdc56-192d-4c67-99f3-a6b4b538092e")
+			(uuid "145a71b6-9085-4585-9263-507fcd675ada")
 			(effects
 				(font
 					(size 1 1)
@@ -2839,7 +2839,7 @@
 		(property "Value" "LED_KRGB"
 			(at 0 8.11 90)
 			(layer "F.Fab")
-			(uuid "a3570284-37ef-4258-af19-d553e407aa60")
+			(uuid "eb26d685-4f77-4a72-b3a0-5d009385bb2c")
 			(effects
 				(font
 					(size 1 1)
@@ -2851,7 +2851,7 @@
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "17f2f268-8e04-42fc-b381-cce3d7a33e8d")
+			(uuid "7ed87aeb-b0af-45e6-ac26-7efb11310aee")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2862,7 +2862,7 @@
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "c5b6f70e-9faf-4bc4-9c9d-aef11610a839")
+			(uuid "8747c15b-a7fd-40b6-894c-362863450eca")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2888,7 +2888,7 @@
 		(units
 			(unit
 				(name "A")
-				(pins "1" "2" "3" "4")
+				(pins "2" "1" "3" "4")
 			)
 		)
 		(attr through_hole)
@@ -3032,8 +3032,8 @@
 			(drill 0.8)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
-			(net "GND")
-			(pinfunction "K_1")
+			(net "/LEFT_LED_R")
+			(pinfunction "RA_1")
 			(pintype "passive")
 			(uuid "a089a58b-264e-4efa-83ca-c0f694a50ac4")
 		)
@@ -3043,8 +3043,8 @@
 			(drill 0.8)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
-			(net "/LEFT_LED_R")
-			(pinfunction "RA_2")
+			(net "GND")
+			(pinfunction "K_2")
 			(pintype "passive")
 			(uuid "b5a28986-761c-4b20-b3e9-1419c9522ad7")
 		)
@@ -4716,11 +4716,11 @@
 	(footprint "LOGO"
 		(layer "F.Cu")
 		(uuid "ac232b2a-b37b-45b5-8f04-886a11a4c0a6")
-		(at 154.7 114.9)
+		(at 155 114.9)
 		(property "Reference" "G***"
 			(at 0 0 0)
 			(layer "F.SilkS")
-			(uuid "c22d5451-f91e-4aae-a2b9-94ca3616cd3e")
+			(uuid "da39faaf-1190-4a69-a191-f6e83dcd8273")
 			(effects
 				(font
 					(size 1.5 1.5)
@@ -4732,7 +4732,7 @@
 			(at 0.75 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "e7a48bfc-c24a-4241-8c14-1f903a137d8f")
+			(uuid "27a14e13-52af-45f7-a9c6-5635f7c8e01a")
 			(effects
 				(font
 					(size 1.5 1.5)
@@ -4744,7 +4744,7 @@
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "8f0b93b1-77b1-427f-9f8d-b452e9d802ce")
+			(uuid "0b9615d3-35ce-4e15-9eee-fa181666322f")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4755,7 +4755,7 @@
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "9d2be8b8-99e9-4c0c-aa0d-ecccd3666581")
+			(uuid "8de4d40b-80fe-4ac7-b9c5-f681a39dafc0")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6703,14 +6703,14 @@
 		(layer "Edge.Cuts")
 		(uuid "4e05d10a-5f15-4656-8180-9052780afccf")
 	)
-	(gr_text "Problem: Pinout non corresponding to real LED"
-		(at 60.1 105.4 0)
-		(layer "Dwgs.User")
-		(uuid "e808ffed-172b-4afb-921c-ac009daf1a34")
+	(gr_text "écran OLED 1.3 pouces (I2C)"
+		(at 124.5 80 0)
+		(layer "F.SilkS")
+		(uuid "4fc51470-c7dd-43be-b73d-1a05bfab6385")
 		(effects
 			(font
-				(size 1.5 1.5)
-				(thickness 0.3)
+				(size 1 1)
+				(thickness 0.25)
 				(bold yes)
 			)
 			(justify left bottom)
@@ -7043,6 +7043,14 @@
 		(layer "F.Cu")
 		(net "/BUZZER")
 		(uuid "a886f88e-250c-4e6e-af85-74578a5fc4e3")
+	)
+	(segment
+		(start 150.000001 104.650001)
+		(end 150.000001 105)
+		(width 0.6)
+		(layer "F.Cu")
+		(net "GND")
+		(uuid "31bfe97d-59a2-4228-9cff-4ca281d5828a")
 	)
 	(segment
 		(start 152.3 109.8)
@@ -7413,16 +7421,16 @@
 		(uuid "2bbf1550-8bf2-46e3-b894-21ae06c30ca8")
 	)
 	(segment
-		(start 150.000001 104.650001)
-		(end 150.000001 105)
-		(width 0.6)
+		(start 148 105)
+		(end 148 102.999999)
+		(width 0.4)
 		(layer "F.Cu")
 		(net "/RIGHT_LED_R")
-		(uuid "31bfe97d-59a2-4228-9cff-4ca281d5828a")
+		(uuid "8c62499b-5733-4946-8da5-5f469890335a")
 	)
 	(segment
 		(start 124.442721 79.44272)
-		(end 150.000001 105)
+		(end 148 102.999999)
 		(width 0.4)
 		(layer "F.Cu")
 		(net "/RIGHT_LED_R")
@@ -7470,11 +7478,19 @@
 	)
 	(segment
 		(start 114.28272 101.282719)
-		(end 118.000001 105)
+		(end 116 102.999999)
 		(width 0.4)
 		(layer "F.Cu")
 		(net "/LEFT_LED_R")
 		(uuid "41a707a7-e439-44d7-9546-8d7bf6bd42fc")
+	)
+	(segment
+		(start 116 105)
+		(end 116 102.999999)
+		(width 0.4)
+		(layer "F.Cu")
+		(net "/LEFT_LED_R")
+		(uuid "46505885-12d7-402a-8abb-e5ac7acfd785")
 	)
 	(segment
 		(start 116.82272 101.82272)
@@ -7517,22 +7533,6 @@
 		(uuid "a36ccccf-be8b-4e73-8f1f-f1e0a67e6c8b")
 	)
 	(segment
-		(start 137.14272 63.33272)
-		(end 138.81 65)
-		(width 0.4)
-		(layer "F.Cu")
-		(net "/SDA")
-		(uuid "96d3f123-6358-46d0-b24d-52515457ee2b")
-	)
-	(segment
-		(start 137.14272 55.99632)
-		(end 137.14272 63.33272)
-		(width 0.4)
-		(layer "F.Cu")
-		(net "/SDA")
-		(uuid "d2183d5b-a794-4f31-acf0-4235ef96760b")
-	)
-	(segment
 		(start 134.602719 63.33272)
 		(end 134.602719 55.99632)
 		(width 0.4)
@@ -7547,6 +7547,22 @@
 		(layer "F.Cu")
 		(net "/SCL")
 		(uuid "29aab838-c127-4d7f-81d1-c74d2398d902")
+	)
+	(segment
+		(start 137.14272 63.33272)
+		(end 138.81 65)
+		(width 0.4)
+		(layer "F.Cu")
+		(net "/SDA")
+		(uuid "96d3f123-6358-46d0-b24d-52515457ee2b")
+	)
+	(segment
+		(start 137.14272 55.99632)
+		(end 137.14272 63.33272)
+		(width 0.4)
+		(layer "F.Cu")
+		(net "/SDA")
+		(uuid "d2183d5b-a794-4f31-acf0-4235ef96760b")
 	)
 	(embedded_fonts no)
 )

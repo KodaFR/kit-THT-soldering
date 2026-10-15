@@ -1,5 +1,5 @@
-#define SDA_PIN 8
-#define SCL_PIN 9
+#define SDA_PIN 3
+#define SCL_PIN 8
 #define OLED_RESET -1
 
 #define BTN_LEFT 10
