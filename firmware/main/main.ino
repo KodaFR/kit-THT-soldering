@@ -13,6 +13,7 @@ void setup() {
   setupPins();
   Serial.println("GPIO INITIALISES");
   initscreen();
+  renderUI();
   Serial.println("ECRAN INITIALISE");
   playbootMelody();
   WiFi.mode(WIFI_STA);
