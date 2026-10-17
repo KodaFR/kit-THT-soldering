@@ -8,6 +8,7 @@ class Pet {
         int happyness;
         int creativity;
         int level;
+        int money;
 
 
     Pet(int talent_learn, int talent_experiment, int talent_play);
@@ -17,6 +18,7 @@ class Pet {
     void eat(int points);
     void play(int points);
     void experiment(int points);
+    void update();
 
     void save_stats();
 

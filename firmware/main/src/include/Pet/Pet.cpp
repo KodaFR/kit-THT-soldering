@@ -25,13 +25,20 @@ Pet::~Pet() {
 
 void Pet::learn(int points){
     this->culture +=std::ceil(points * learn_coef);
+    this->money += 2;
 }
-void Pet::eat(int points){
-    this->hunger += (points);
+bool Pet::eat(int points){
+    if (this->money >= 15 ){
+        this->hunger += (points);}
 }
 void Pet::play(int points){
     this->happyness +=std::ceil(points * play_coef);
 }
 void Pet::experiment(int points){
     this->creativity +=std::ceil(points * experiment_coef);
+    this->money += points/4;
+}
+
+void update(){
+    
 }
