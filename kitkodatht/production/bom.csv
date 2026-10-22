@@ -1,0 +1,7 @@
+﻿Designator,Footprint,Quantity,Value,LCSC Part #
+BZ1,Buzzer_TDK_PS1240P02BT_D12.2mm_H6.5mm,1,Buzzer,
+"D1, D2",PinHeader_1x04_P2.00mm_Vertical,2,LED_KRGB,
+J1,PinHeader_1x04_P2.54mm_Vertical,1,Conn_01x04_Pin,
+"R1, R2, R3",R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal,3,10k,
+"SW1, SW2, SW3",SW_PUSH_6mm,3,SW_Push,
+U1,ESP32-S3-DevKitC,1,ESP32-S3-DevKitC,
