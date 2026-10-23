@@ -7,6 +7,7 @@
 
 AppState current_state = AppState::STATE_BOOT;
 
+
 void renderUI(){
     switch (current_state)
     {
@@ -25,4 +26,12 @@ void renderUI(){
 }
 
     
-void stateManager(){}
+void stateManager(){
+    switch (current_state)
+    {
+        case AppState::STATE_BOOT:
+            if (lastInput == UserInput::PRESS){
+
+            }
+}
+}

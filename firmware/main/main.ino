@@ -5,6 +5,8 @@
 #include "src/buzzer/buzzer.h"
 #include "WiFi.h"
 
+UserInput lastInput = UserInput::NONE;
+
 void setup() {
   Serial.begin(BAUDRATE);
   Serial.println("COMMUNICATION EN SERIE INITIALISE");

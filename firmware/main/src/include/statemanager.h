@@ -30,3 +30,4 @@ enum class AppState{
 };
 
 void renderUI();
+extern UserInput lastInput;
