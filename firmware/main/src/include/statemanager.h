@@ -1,5 +1,6 @@
 
 enum class UserInput {
+    NONE,
     LEFT, 
     RIGHT, 
     PRESS, 
@@ -8,8 +9,8 @@ enum class UserInput {
 enum class AppState{
     STATE_BOOT,
     STATE_ERROR, //un module n'est pas detecté (deffectueux, débranché etc...)
-    STATE_MENU_OEUF,
-    STATE_MENU_OK,
+    STATE_MENU_EGG,
+    STATE_MENU_PET,
     STATE_MENU_DEAD,
 
     STATE_STATS_HEALTH,
@@ -29,5 +30,14 @@ enum class AppState{
 
 };
 
+enum EggState {
+    NEW,
+    CRACK1,
+    CRACK2,
+    CRACK3,
+    HATCHED //Il n'y a plus d'oeuf
+};
+
 void renderUI();
+void stateManager();
 extern UserInput lastInput;
