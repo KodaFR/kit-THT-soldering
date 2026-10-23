@@ -15,7 +15,7 @@ class Pet {
     ~Pet();
 
     void learn(int points);
-    void eat(int points);
+    bool eat(int points);
     void play(int points);
     void experiment(int points);
     void update();
