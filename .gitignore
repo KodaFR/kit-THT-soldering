@@ -7,3 +7,8 @@
 **/fp-info-cache
 *.kicad_prl
 *.lck
+
+# Fichiers de production générés
+**/production/
+kitkodatht/fabrication-toolkit-options.json
+kitkodatht/bom.csv
