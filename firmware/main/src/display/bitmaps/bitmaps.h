@@ -5,13 +5,31 @@
 #include "egg2.h"
 #include "egg3.h"
 #include "egg4.h"
+#include "experiment.h"
+#include "food.h"
+#include "health.h"
+#include "learn.h"
+#include "money.h"
+#include "pet.h"
+#include "play.h"
+#include "skills.h"
+#include "stats.h"
 
 // Array of all bitmaps for convenience.
-const int epd_bitmap_allArray_LEN = 5;
-const unsigned char* epd_bitmap_allArray[5] = {
+const int epd_bitmap_allArray_LEN = 14;
+const unsigned char* epd_bitmap_allArray[14] = {
 	logo_bitmap,
 	egg1_bitmap,
 	egg2_bitmap,
 	egg3_bitmap,
 	egg4_bitmap,
+	experiment_menu_bitmap,
+	food_menu_bitmap,
+	health_menu_bitmap,
+	learn_menu_bitmap,
+	money_menu_bitmap,
+	pet_menu_bitmap,
+	play_menu_bitmap,
+	skills_menu_bitmap,
+	stats_menu_bitmap,
 };

@@ -8,6 +8,22 @@
 AppState current_state = AppState::STATE_BOOT;
 EggState current_egg_state = EggState::NEW;
 
+namespace {
+const unsigned char* const menuBitmaps[] = {
+    health_menu_bitmap,
+    skills_menu_bitmap,
+    stats_menu_bitmap,
+    money_menu_bitmap,
+    pet_menu_bitmap,
+    food_menu_bitmap,
+    learn_menu_bitmap,
+    play_menu_bitmap,
+    experiment_menu_bitmap,
+};
+const unsigned int menuPageCount = sizeof(menuBitmaps) / sizeof(menuBitmaps[0]);
+unsigned int menuPageIndex = 0;
+}
+
 void renderUI(){
     switch (current_state)
     {
@@ -38,6 +54,9 @@ void renderUI(){
             current_state = AppState::STATE_MENU_PET;
             break;
         }
+        break;
+    case AppState::STATE_MENU_PET:
+        drawBitmapPage(menuBitmaps[menuPageIndex]);
         break;
     
     default:
@@ -75,6 +94,13 @@ void stateManager(){
                     current_state = AppState::STATE_MENU_PET;
                     break;
                 }
+            }
+            break;
+        case AppState::STATE_MENU_PET:
+            if (lastInput == UserInput::LEFT) {
+                menuPageIndex = (menuPageIndex + menuPageCount - 1) % menuPageCount;
+            } else if (lastInput == UserInput::RIGHT) {
+                menuPageIndex = (menuPageIndex + 1) % menuPageCount;
             }
             break;
         default:
