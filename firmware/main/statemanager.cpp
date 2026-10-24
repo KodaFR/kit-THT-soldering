@@ -3,6 +3,7 @@
 #include "src/include/statemanager.h"
 #include "src/display/display.h"
 #include "src/display/bitmaps/bitmaps.h"
+#include "src/buzzer/buzzer.h"
 #include "src/lights/lights.h"
 
 AppState current_state = AppState::STATE_BOOT;
@@ -89,6 +90,7 @@ void stateManager(){
                 case EggState::CRACK3:
                     current_egg_state = EggState::HATCHED;
                     current_state = AppState::STATE_MENU_PET;
+                    playHatchMelody();
                     break;
                 case EggState::HATCHED:
                     current_state = AppState::STATE_MENU_PET;
