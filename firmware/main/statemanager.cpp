@@ -10,18 +10,24 @@ AppState current_state = AppState::STATE_BOOT;
 EggState current_egg_state = EggState::NEW;
 
 namespace {
-const unsigned char* const menuBitmaps[] = {
-    health_menu_bitmap,
-    skills_menu_bitmap,
-    stats_menu_bitmap,
-    money_menu_bitmap,
-    pet_menu_bitmap,
-    food_menu_bitmap,
-    learn_menu_bitmap,
-    play_menu_bitmap,
-    experiment_menu_bitmap,
+struct MenuPage {
+    const unsigned char* bitmap;
+    const char* label;
+    int acuteAccentIndex;
 };
-const unsigned int menuPageCount = sizeof(menuBitmaps) / sizeof(menuBitmaps[0]);
+
+const MenuPage menuPages[] = {
+    {health_menu_bitmap, "SANTE", 4},
+    {skills_menu_bitmap, "COMPETENCES", 4},
+    {stats_menu_bitmap, "STATISTIQUES", -1},
+    {money_menu_bitmap, "ARGENT", -1},
+    {pet_menu_bitmap, "ANIMAL", -1},
+    {food_menu_bitmap, "NOURRIR", -1},
+    {learn_menu_bitmap, "APPRENDRE", -1},
+    {play_menu_bitmap, "JOUER", -1},
+    {experiment_menu_bitmap, "EXPERIMENTER", 3},
+};
+const unsigned int menuPageCount = sizeof(menuPages) / sizeof(menuPages[0]);
 unsigned int menuPageIndex = 0;
 }
 
@@ -57,7 +63,11 @@ void renderUI(){
         }
         break;
     case AppState::STATE_MENU_PET:
-        drawBitmapPage(menuBitmaps[menuPageIndex]);
+        drawBitmapPageWithLabel(
+            menuPages[menuPageIndex].bitmap,
+            menuPages[menuPageIndex].label,
+            menuPages[menuPageIndex].acuteAccentIndex
+        );
         break;
     
     default:
