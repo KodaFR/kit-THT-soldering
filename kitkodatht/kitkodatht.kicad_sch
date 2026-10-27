@@ -3587,6 +3587,16 @@
 	)
 	(wire
 		(pts
+			(xy 31.75 52.07) (xy 31.75 53.34)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "47d40c29-f09f-4b24-a47e-749ede18beb0")
+	)
+	(wire
+		(pts
 			(xy 66.04 88.9) (xy 66.04 99.06)
 		)
 		(stroke
@@ -3594,6 +3604,16 @@
 			(type default)
 		)
 		(uuid "4921158d-3ab5-4cf9-ba79-d5bc2b31601a")
+	)
+	(wire
+		(pts
+			(xy 76.2 45.72) (xy 76.2 41.91)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "519c27cc-3e32-47a9-9d77-8bd4342d9073")
 	)
 	(wire
 		(pts
@@ -3627,6 +3647,16 @@
 	)
 	(wire
 		(pts
+			(xy 31.75 41.91) (xy 36.83 41.91)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6fea2199-054a-4e7d-adf5-ae680cc361ed")
+	)
+	(wire
+		(pts
 			(xy 67.31 99.06) (xy 66.04 99.06)
 		)
 		(stroke
@@ -3644,6 +3674,16 @@
 			(type default)
 		)
 		(uuid "77244212-514e-4b4f-93c4-f40cf21213ed")
+	)
+	(wire
+		(pts
+			(xy 76.2 41.91) (xy 80.01 41.91)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "80791052-585c-41ad-9067-aa0eec9b8fed")
 	)
 	(wire
 		(pts
@@ -3697,16 +3737,6 @@
 	)
 	(wire
 		(pts
-			(xy 73.66 41.91) (xy 80.01 41.91)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "bf6fd400-9502-4086-b28b-b313f1919c63")
-	)
-	(wire
-		(pts
 			(xy 83.82 165.1) (xy 90.17 165.1)
 		)
 		(stroke
@@ -3714,16 +3744,6 @@
 			(type default)
 		)
 		(uuid "c069274a-187a-4fb5-a284-253501306b70")
-	)
-	(wire
-		(pts
-			(xy 30.48 41.91) (xy 36.83 41.91)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "c1213493-20b2-49a5-a744-0f977e63fd4a")
 	)
 	(wire
 		(pts
@@ -3744,6 +3764,16 @@
 			(type default)
 		)
 		(uuid "dbee23ef-77c3-4c34-9c78-ac933f236582")
+	)
+	(wire
+		(pts
+			(xy 31.75 41.91) (xy 31.75 44.45)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "efd6fe75-3b9c-4b69-936c-e16a466c73fd")
 	)
 	(wire
 		(pts
@@ -4513,6 +4543,87 @@
 			(project "kitkodatht"
 				(path "/996050a9-bdfc-45b0-9fb7-0cb843c9c1c6"
 					(reference "U1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 31.75 48.26 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "3dfe0252-102e-4032-b599-b192608bbf05")
+		(property "Reference" "R6"
+			(at 33.02 46.736 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" ""
+			(at 33.02 49.276 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal"
+			(at 29.972 48.26 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 31.75 48.26 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 31.75 48.26 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "77e30ac6-e38c-4c64-bc3e-728be90f4a62")
+		)
+		(pin "2"
+			(uuid "440a3df7-95e4-48ff-9f45-6ebf629de9e2")
+		)
+		(instances
+			(project "kitkodatht"
+				(path "/996050a9-bdfc-45b0-9fb7-0cb843c9c1c6"
+					(reference "R6")
 					(unit 1)
 				)
 			)
@@ -5393,7 +5504,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 73.66 41.91 0)
+		(at 76.2 53.34 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -5404,7 +5515,7 @@
 		(fields_autoplaced yes)
 		(uuid "97709b32-6423-4faa-9b91-fdc693981ffc")
 		(property "Reference" "#PWR012"
-			(at 73.66 48.26 0)
+			(at 76.2 59.69 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5415,7 +5526,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 73.66 46.99 0)
+			(at 76.2 58.42 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -5425,7 +5536,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 73.66 41.91 0)
+			(at 76.2 53.34 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5436,7 +5547,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 73.66 41.91 0)
+			(at 76.2 53.34 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5447,7 +5558,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 73.66 41.91 0)
+			(at 76.2 53.34 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5717,7 +5828,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 30.48 41.91 0)
+		(at 31.75 53.34 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -5728,7 +5839,7 @@
 		(fields_autoplaced yes)
 		(uuid "a4e0bfa4-50f2-4bad-bf0d-1a3f7953f0a9")
 		(property "Reference" "#PWR011"
-			(at 30.48 48.26 0)
+			(at 31.75 59.69 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5739,7 +5850,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 30.48 46.99 0)
+			(at 31.75 58.42 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -5749,7 +5860,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 30.48 41.91 0)
+			(at 31.75 53.34 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5760,7 +5871,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 30.48 41.91 0)
+			(at 31.75 53.34 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5771,7 +5882,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 30.48 41.91 0)
+			(at 31.75 53.34 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5947,6 +6058,87 @@
 			(project "kitkodatht"
 				(path "/996050a9-bdfc-45b0-9fb7-0cb843c9c1c6"
 					(reference "R4")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 76.2 49.53 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "b35b1ea2-a314-46a6-8206-9afde7bedf96")
+		(property "Reference" "R7"
+			(at 77.47 48.006 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" ""
+			(at 77.47 50.546 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal"
+			(at 74.422 49.53 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 76.2 49.53 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 76.2 49.53 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "83d84be5-9f5f-42b2-8d66-15de8316da64")
+		)
+		(pin "2"
+			(uuid "af7bbc70-5242-46e2-ad81-75db5f6db129")
+		)
+		(instances
+			(project "kitkodatht"
+				(path "/996050a9-bdfc-45b0-9fb7-0cb843c9c1c6"
+					(reference "R7")
 					(unit 1)
 				)
 			)
