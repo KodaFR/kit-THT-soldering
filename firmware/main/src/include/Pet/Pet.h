@@ -11,7 +11,7 @@ class Pet {
         int money;
 
 
-    Pet(int talent_learn, int talent_experiment, int talent_play);
+    Pet(float talent_learn, float talent_experiment, float talent_play);
     ~Pet();
 
     void learn(int points);

@@ -5,6 +5,7 @@
 #include "src/display/bitmaps/bitmaps.h"
 #include "src/buzzer/buzzer.h"
 #include "src/lights/lights.h"
+#include "src/include/Pet/pet.h"
 
 AppState current_state = AppState::STATE_BOOT;
 EggState current_egg_state = EggState::NEW;
@@ -98,9 +99,12 @@ void stateManager(){
                     current_egg_state = EggState::CRACK3;
                     break;
                 case EggState::CRACK3:
+                    {
                     current_egg_state = EggState::HATCHED;
                     current_state = AppState::STATE_MENU_PET;
+                    Pet myPet(0.5, 0.5, 0.5);
                     playHatchMelody();
+                    }
                     break;
                 case EggState::HATCHED:
                     current_state = AppState::STATE_MENU_PET;

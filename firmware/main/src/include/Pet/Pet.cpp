@@ -7,7 +7,7 @@
 
 using namespace std;
 
-Pet::Pet(int talent_learn, int talent_experiment, int talent_play) : learn_coef(talent_learn), experiment_coef(talent_experiment), play_coef(talent_play)
+Pet::Pet(float talent_learn, float talent_experiment, float talent_play) : learn_coef(talent_learn), experiment_coef(talent_experiment), play_coef(talent_play)
 {
     this-> health = 5;
     this ->level = 0;
@@ -17,6 +17,7 @@ Pet::Pet(int talent_learn, int talent_experiment, int talent_play) : learn_coef(
     this->culture = 0;
     this->happyness = 0;
     this->creativity = 0;
+    Serial.println("L'objet Pet a été créé");
 }
 
 Pet::~Pet() {
