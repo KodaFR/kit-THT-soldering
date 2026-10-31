@@ -33,15 +33,18 @@ unsigned int menuPageIndex = 0;
 }
 
 void renderUI(){
+    if (current_egg_state == EggState::HATCHED) {
+        setColorLeft(173, 216, 230);
+        setColorRight(173, 216, 230);
+    } else {
+        setColorLeft(255, 255, 255);
+        setColorRight(255, 255, 255);
+    }
+
     switch (current_state)
     {
     case AppState::STATE_BOOT:
         drawBitmapPage(logo_bitmap);
-        if (!isLedOn){
-        setColorLeft(255, 255 ,255);
-        setColorRight(255, 255 ,255);
-        isLedOn = true;
-        }
         break;
     case AppState::STATE_MENU_EGG:
         switch (current_egg_state)

@@ -2,8 +2,6 @@
 #include "lights.h"
 #include <Arduino.h>
 
-bool isLedOn = false;
-
 void setColorLeft(int R, int G, int B){
     analogWrite(PINLEFT_R, R);
     analogWrite(PINLEFT_G, G);
