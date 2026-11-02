@@ -1,0 +1,8 @@
+"Reference","Qty","Value","DNP","Exclude from BOM","Exclude from Board","Footprint","Datasheet"
+"BZ1","1","Buzzer","","","","Buzzer_Beeper:Buzzer_TDK_PS1240P02BT_D12.2mm_H6.5mm",""
+"D1,D2","2","LED_KRGB","","","","Connector_PinHeader_2.00mm:PinHeader_1x04_P2.00mm_Vertical",""
+"J1","1","Conn_01x04_Pin","","","","Connector_PinHeader_2.54mm:PinHeader_1x04_P2.54mm_Vertical",""
+"R1,R2,R3,R4,R5","5","10k","","","","Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal",""
+"R8,R9,R10,R11,R12,R13","6","","","","","Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal",""
+"SW1,SW2,SW3","3","SW_Push","","","","Button_Switch_THT:SW_PUSH_6mm",""
+"U1","1","ESP32-S3-DevKitC","","","","myfootprints:ESP32-S3-DevKitC",""
