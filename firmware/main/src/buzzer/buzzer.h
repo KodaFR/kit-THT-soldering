@@ -17,3 +17,4 @@ const int bootNotesCount = sizeof(bootMelody) / sizeof(bootMelody[0]);
 
 void playbootMelody();
 void playHatchMelody();
+void playDeathMelody();
