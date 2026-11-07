@@ -17,6 +17,9 @@ Pet::Pet(float talent_learn, float talent_experiment, float talent_play) : learn
     this->culture = 0;
     this->happyness = 0;
     this->creativity = 0;
+
+    this->lastAgeMillis = 0;
+
     Serial.println("L'objet Pet a été créé");
 }
 
@@ -40,6 +43,12 @@ void Pet::experiment(int points){
     this->money += points/4;
 }
 
-void update(){
-    
+void Pet::update(){
+    if(millis() - this->lastAgeMillis >= 1*60*100){// on incrémente de 1 an toutes les 5 minutes
+        this->lastAgeMillis = millis();
+        this->age ++;
+        Serial.println("Joyeux annviersaire! Votre compagnon a maintenant: ")
+        Serial.print(this->age);
+        Serial.print(" ans!");
+    }
 }

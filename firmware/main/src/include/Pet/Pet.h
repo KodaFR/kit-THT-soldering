@@ -28,5 +28,7 @@ class Pet {
         const int experiment_coef;
         const int play_coef;
 
+        int lastAgeMillis; //Derniere actualisation de l'age (en ms)
+
 
 };
