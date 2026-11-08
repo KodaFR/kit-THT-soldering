@@ -9,6 +9,7 @@
 
 AppState current_state = AppState::STATE_BOOT;
 EggState current_egg_state = EggState::NEW;
+Pet *myPet;
 
 namespace {
 struct MenuPage {
@@ -30,7 +31,10 @@ const MenuPage menuPages[] = {
 };
 const unsigned int menuPageCount = sizeof(menuPages) / sizeof(menuPages[0]);
 unsigned int menuPageIndex = 0;
+
 }
+
+
 
 void renderUI(){
     if (current_egg_state == EggState::HATCHED) {
@@ -73,6 +77,9 @@ void renderUI(){
             menuPages[menuPageIndex].acuteAccentIndex
         );
         break;
+    case AppState::STATE_MENU_DEAD:
+        drawBitmapPage(egg4_bitmap);
+        break;
     
     default:
         break;
@@ -105,7 +112,7 @@ void stateManager(){
                     {
                     current_egg_state = EggState::HATCHED;
                     current_state = AppState::STATE_MENU_PET;
-                    Pet myPet(0.5, 0.5, 0.5);
+                    myPet = new Pet(0.5, 0.5, 0.5);
                     playHatchMelody();
                     }
                     break;
@@ -122,7 +129,13 @@ void stateManager(){
                 menuPageIndex = (menuPageIndex + 1) % menuPageCount;
             }
             break;
+        case AppState::STATE_MENU_DEAD:
+            playDeathMelody();
+            break;
         default:
             break;
+    }
+    if (current_egg_state == EggState::HATCHED){
+    myPet->update();
     }
 }
