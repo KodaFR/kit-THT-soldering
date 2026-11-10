@@ -19,7 +19,7 @@ void drawBitmapPage(const unsigned char bitmap[1024]){
   drawBitmapPageWithLabel(bitmap, nullptr);
 }
 
-void drawBitmapPageWithLabel(const unsigned char bitmap[1024], const char* label, int acuteAccentIndex){
+void drawBitmapPageWithLabel(const unsigned char bitmap[1024], const char* label, int acuteAccentIndex, const char* subtitle){
   display.clearDisplay();
   display.drawBitmap(
     0, 0,
@@ -39,6 +39,14 @@ void drawBitmapPageWithLabel(const unsigned char bitmap[1024], const char* label
       const int accentX = textX + acuteAccentIndex * 6;
       display.drawLine(accentX + 2, 55, accentX + 4, 53, SH110X_WHITE);
     }
+  }
+  if (subtitle != nullptr && subtitle[0] != '\0') {
+    const size_t subtitleLength = strlen(subtitle);
+    const int textX = (SCREEN_WIDTH - static_cast<int>(subtitleLength) * 6) / 2;
+    display.setTextSize(1);
+    display.setTextColor(SH110X_WHITE);
+    display.setCursor(textX, 44);
+    display.print(subtitle);
   }
   display.display();
 }

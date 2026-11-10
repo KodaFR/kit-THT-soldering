@@ -6,6 +6,7 @@
 #include "src/buzzer/buzzer.h"
 #include "src/lights/lights.h"
 #include "src/include/Pet/pet.h"
+#include <stdio.h>
 
 AppState current_state = AppState::STATE_BOOT;
 EggState current_egg_state = EggState::NEW;
@@ -71,11 +72,20 @@ void renderUI(){
         }
         break;
     case AppState::STATE_MENU_PET:
-        drawBitmapPageWithLabel(
-            menuPages[menuPageIndex].bitmap,
-            menuPages[menuPageIndex].label,
-            menuPages[menuPageIndex].acuteAccentIndex
-        );
+        {
+            char moneyText[20];
+            const char* subtitle = nullptr;
+            if (menuPageIndex == 3 && myPet != nullptr) {
+                snprintf(moneyText, sizeof(moneyText), "SOLDE: %d", myPet->money);
+                subtitle = moneyText;
+            }
+            drawBitmapPageWithLabel(
+                menuPages[menuPageIndex].bitmap,
+                menuPages[menuPageIndex].label,
+                menuPages[menuPageIndex].acuteAccentIndex,
+                subtitle
+            );
+        }
         break;
     case AppState::STATE_MENU_DEAD:
         drawBitmapPage(egg4_bitmap);
