@@ -35,6 +35,7 @@ flowchart LR
 - [⚙️ 2. Installer Arduino IDE](#installer-arduino-ide)
 - [⬆️ 3. Téléverser le firmware](#televerser-le-firmware)
 - [🎮 4. Utiliser la carte](#utiliser-la-carte)
+- [📖 Guide de jeu](#guide-de-jeu)
 - [🛠️ Dépannage](#depannage)
 - [📂 Fichiers du projet](#fichiers-du-projet)
 
@@ -144,6 +145,13 @@ animal, nourrir, apprendre, jouer et expérimenter.
 
 > 🚧 **État du firmware :** les écrans sont affichés et peuvent être parcourus.
 > Les actions détaillées des menus ne sont pas encore reliées à une sélection.
+
+<a id="guide-de-jeu"></a>
+## 📖 Guide de jeu
+
+- 🥚 Une fois le jeu démarré, un œuf s’affiche. Aidez-le à éclore en appuyant
+  quatre fois sur le bouton central.
+- ⏳ Toutes les 5 minutes, il prend un an.
 
 <a id="depannage"></a>
 ## 🛠️ Dépannage
