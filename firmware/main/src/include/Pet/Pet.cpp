@@ -17,6 +17,7 @@ Pet::Pet(float talent_learn, float talent_experiment, float talent_play) : learn
     this->culture = 0;
     this->happyness = 0;
     this->creativity = 0;
+    this->money = 0;
 
     this->lastAgeMillis = 5*60*1000; //Le compagnon prend 1 an après 5 minutes et non dès sa naissance
 
