@@ -24,7 +24,7 @@ const MenuPage menuPages[] = {
     {skills_menu_bitmap, "COMPETENCES", 4},
     {stats_menu_bitmap, "STATISTIQUES", -1},
     {money_menu_bitmap, "ARGENT", -1},
-    {pet_menu_bitmap, "ANIMAL", -1},
+    {pet_menu_bitmap, "", -1},
     {food_menu_bitmap, "NOURRIR", -1},
     {learn_menu_bitmap, "APPRENDRE", -1},
     {play_menu_bitmap, "JOUER", -1},
