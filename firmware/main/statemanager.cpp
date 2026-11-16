@@ -10,29 +10,49 @@
 
 AppState current_state = AppState::STATE_BOOT;
 EggState current_egg_state = EggState::NEW;
-Pet *myPet;
+Pet *myPet = nullptr;
 
 namespace {
 struct MenuPage {
     const unsigned char* bitmap;
     const char* label;
     int acuteAccentIndex;
+    AppState state;
 };
 
 const MenuPage menuPages[] = {
-    {health_menu_bitmap, "SANTE", 4},
-    {skills_menu_bitmap, "COMPETENCES", 4},
-    {stats_menu_bitmap, "STATISTIQUES", -1},
-    {money_menu_bitmap, "ARGENT", -1},
-    {pet_menu_bitmap, "", -1},
-    {food_menu_bitmap, "NOURRIR", -1},
-    {learn_menu_bitmap, "APPRENDRE", -1},
-    {play_menu_bitmap, "JOUER", -1},
-    {experiment_menu_bitmap, "EXPERIMENTER", 3},
+    {health_menu_bitmap, "SANTE", 4, AppState::STATE_STATS_HEALTH},
+    {skills_menu_bitmap, "COMPETENCES", 4, AppState::STATE_STATS_SKILLS},
+    {stats_menu_bitmap, "STATISTIQUES", -1, AppState::STATE_MENU_STATS},
+    {money_menu_bitmap, "ARGENT", -1, AppState::STATE_STATS_MONEY},
+    {pet_menu_bitmap, "", -1, AppState::STATE_STATS_PET},
+    {food_menu_bitmap, "NOURRIR", -1, AppState::STATE_MENU_EAT},
+    {learn_menu_bitmap, "APPRENDRE", -1, AppState::STATE_MENU_LEARN},
+    {play_menu_bitmap, "JOUER", -1, AppState::STATE_MENU_PLAY},
+    {experiment_menu_bitmap, "EXPERIMENTER", 3, AppState::STATE_MENU_EXPERIMENT},
 };
 const unsigned int menuPageCount = sizeof(menuPages) / sizeof(menuPages[0]);
 unsigned int menuPageIndex = 0;
 
+void renderMenuPage(const MenuPage& page) {
+    char moneyText[20];
+    const char* subtitle = nullptr;
+    if (page.state == AppState::STATE_STATS_MONEY && myPet != nullptr) {
+        snprintf(moneyText, sizeof(moneyText), "SOLDE: %d", myPet->money);
+        subtitle = moneyText;
+    }
+
+    drawBitmapPageWithLabel(page.bitmap, page.label, page.acuteAccentIndex, subtitle);
+}
+
+void renderPageForState(AppState state) {
+    for (unsigned int i = 0; i < menuPageCount; ++i) {
+        if (menuPages[i].state == state) {
+            renderMenuPage(menuPages[i]);
+            return;
+        }
+    }
+}
 }
 
 
@@ -72,20 +92,18 @@ void renderUI(){
         }
         break;
     case AppState::STATE_MENU_PET:
-        {
-            char moneyText[20];
-            const char* subtitle = nullptr;
-            if (menuPageIndex == 3 && myPet != nullptr) {
-                snprintf(moneyText, sizeof(moneyText), "SOLDE: %d", myPet->money);
-                subtitle = moneyText;
-            }
-            drawBitmapPageWithLabel(
-                menuPages[menuPageIndex].bitmap,
-                menuPages[menuPageIndex].label,
-                menuPages[menuPageIndex].acuteAccentIndex,
-                subtitle
-            );
-        }
+        renderMenuPage(menuPages[menuPageIndex]);
+        break;
+    case AppState::STATE_STATS_HEALTH:
+    case AppState::STATE_STATS_SKILLS:
+    case AppState::STATE_STATS_PET:
+    case AppState::STATE_STATS_MONEY:
+    case AppState::STATE_MENU_STATS:
+    case AppState::STATE_MENU_EAT:
+    case AppState::STATE_MENU_PLAY:
+    case AppState::STATE_MENU_LEARN:
+    case AppState::STATE_MENU_EXPERIMENT:
+        renderPageForState(current_state);
         break;
     case AppState::STATE_MENU_DEAD:
         drawBitmapPage(egg4_bitmap);
@@ -137,6 +155,21 @@ void stateManager(){
                 menuPageIndex = (menuPageIndex + menuPageCount - 1) % menuPageCount;
             } else if (lastInput == UserInput::RIGHT) {
                 menuPageIndex = (menuPageIndex + 1) % menuPageCount;
+            } else if (lastInput == UserInput::PRESS) {
+                current_state = menuPages[menuPageIndex].state;
+            }
+            break;
+        case AppState::STATE_STATS_HEALTH:
+        case AppState::STATE_STATS_SKILLS:
+        case AppState::STATE_STATS_PET:
+        case AppState::STATE_STATS_MONEY:
+        case AppState::STATE_MENU_STATS:
+        case AppState::STATE_MENU_EAT:
+        case AppState::STATE_MENU_PLAY:
+        case AppState::STATE_MENU_LEARN:
+        case AppState::STATE_MENU_EXPERIMENT:
+            if (lastInput == UserInput::PRESS) {
+                current_state = AppState::STATE_MENU_PET;
             }
             break;
         case AppState::STATE_MENU_DEAD:
@@ -145,7 +178,7 @@ void stateManager(){
         default:
             break;
     }
-    if (current_egg_state == EggState::HATCHED){
-    myPet->update();
+    if (current_egg_state == EggState::HATCHED && myPet != nullptr){
+        myPet->update();
     }
 }
