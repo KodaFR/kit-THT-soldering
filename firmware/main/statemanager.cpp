@@ -23,34 +23,85 @@ struct MenuPage {
 const MenuPage menuPages[] = {
     {health_menu_bitmap, "SANTE", 4, AppState::STATE_STATS_HEALTH},
     {skills_menu_bitmap, "COMPETENCES", 4, AppState::STATE_STATS_SKILLS},
-    {stats_menu_bitmap, "STATISTIQUES", -1, AppState::STATE_MENU_STATS},
+    {stats_menu_bitmap, "STATISTIQUES", -1, AppState::STATE_MENU_STATS_PET},
     {money_menu_bitmap, "ARGENT", -1, AppState::STATE_STATS_MONEY},
-    {pet_menu_bitmap, "", -1, AppState::STATE_STATS_PET},
-    {food_menu_bitmap, "NOURRIR", -1, AppState::STATE_MENU_EAT},
-    {learn_menu_bitmap, "APPRENDRE", -1, AppState::STATE_MENU_LEARN},
-    {play_menu_bitmap, "JOUER", -1, AppState::STATE_MENU_PLAY},
-    {experiment_menu_bitmap, "EXPERIMENTER", 3, AppState::STATE_MENU_EXPERIMENT},
+    {pet_menu_bitmap, "", -1, AppState::STATE_MENU_PET},
+    {food_menu_bitmap, "NOURRIR", -1, AppState::STATE_ACTIVITY_EAT},
+    {learn_menu_bitmap, "APPRENDRE", -1, AppState::STATE_ACTIVITY_LEARN},
+    {play_menu_bitmap, "JOUER", -1, AppState::STATE_ACTIVITY_PLAY},
+    {experiment_menu_bitmap, "EXPERIMENTER", 3, AppState::STATE_ACTIVITY_EXPERIMENT},
 };
 const unsigned int menuPageCount = sizeof(menuPages) / sizeof(menuPages[0]);
 unsigned int menuPageIndex = 0;
 
 void renderMenuPage(const MenuPage& page) {
-    char moneyText[20];
-    const char* subtitle = nullptr;
-    if (page.state == AppState::STATE_STATS_MONEY && myPet != nullptr) {
-        snprintf(moneyText, sizeof(moneyText), "SOLDE: %d", myPet->money);
-        subtitle = moneyText;
-    }
-
-    drawBitmapPageWithLabel(page.bitmap, page.label, page.acuteAccentIndex, subtitle);
+    drawBitmapPageWithLabel(page.bitmap, page.label, page.acuteAccentIndex);
 }
 
 void renderPageForState(AppState state) {
     for (unsigned int i = 0; i < menuPageCount; ++i) {
-        if (menuPages[i].state == state) {
-            renderMenuPage(menuPages[i]);
-            return;
+        const MenuPage& page = menuPages[i];
+        if (page.state != state) {
+            continue;
         }
+
+        const char* labels[5] = {};
+        int values[5] = {};
+        unsigned int lineCount = 0;
+        if (myPet != nullptr) {
+            switch (state) {
+            case AppState::STATE_STATS_HEALTH:
+                labels[0] = "SANTE";
+                values[0] = myPet->health;
+                labels[1] = "FAIM";
+                values[1] = myPet->hunger;
+                lineCount = 2;
+                break;
+            case AppState::STATE_STATS_SKILLS:
+                labels[0] = "CULTURE";
+                values[0] = myPet->culture;
+                labels[1] = "CREATIVITE";
+                values[1] = myPet->creativity;
+                labels[2] = "BONHEUR";
+                values[2] = myPet->happyness;
+                lineCount = 3;
+                break;
+            case AppState::STATE_MENU_STATS_PET:
+                labels[0] = "AGE (ANS)";
+                values[0] = myPet->age;
+                labels[1] = "NIVEAU";
+                values[1] = myPet->level;
+                lineCount = 2;
+                break;
+            case AppState::STATE_STATS_MONEY:
+                labels[0] = "SOLDE";
+                values[0] = myPet->money;
+                lineCount = 1;
+                break;
+            case AppState::STATE_STATS_PET:
+                labels[0] = "AGE (ANS)";
+                values[0] = myPet->age;
+                labels[1] = "NIVEAU";
+                values[1] = myPet->level;
+                labels[2] = "BONHEUR";
+                values[2] = myPet->happyness;
+                lineCount = 3;
+                break;
+            default:
+                break;
+            }
+        }
+
+        char statLines[5][24];
+        const char* lines[5];
+        for (unsigned int line = 0; line < lineCount; ++line) {
+            snprintf(statLines[line], sizeof(statLines[line]), "%s: %d", labels[line], values[line]);
+            lines[line] = statLines[line];
+        }
+
+        const char* title = page.label[0] == '\0' ? "ANIMAL" : page.label;
+        drawTextPage(title, lines, lineCount);
+        return;
     }
 }
 }
@@ -98,11 +149,11 @@ void renderUI(){
     case AppState::STATE_STATS_SKILLS:
     case AppState::STATE_STATS_PET:
     case AppState::STATE_STATS_MONEY:
-    case AppState::STATE_MENU_STATS:
-    case AppState::STATE_MENU_EAT:
-    case AppState::STATE_MENU_PLAY:
-    case AppState::STATE_MENU_LEARN:
-    case AppState::STATE_MENU_EXPERIMENT:
+    case AppState::STATE_MENU_STATS_PET:
+    case AppState::STATE_ACTIVITY_EAT:
+    case AppState::STATE_ACTIVITY_PLAY:
+    case AppState::STATE_ACTIVITY_LEARN:
+    case AppState::STATE_ACTIVITY_EXPERIMENT:
         renderPageForState(current_state);
         break;
     case AppState::STATE_MENU_DEAD:
@@ -163,12 +214,12 @@ void stateManager(){
         case AppState::STATE_STATS_SKILLS:
         case AppState::STATE_STATS_PET:
         case AppState::STATE_STATS_MONEY:
-        case AppState::STATE_MENU_STATS:
-        case AppState::STATE_MENU_EAT:
-        case AppState::STATE_MENU_PLAY:
-        case AppState::STATE_MENU_LEARN:
-        case AppState::STATE_MENU_EXPERIMENT:
-            if (lastInput == UserInput::PRESS) {
+        case AppState::STATE_MENU_STATS_PET:
+        case AppState::STATE_ACTIVITY_EAT:
+        case AppState::STATE_ACTIVITY_PLAY:
+        case AppState::STATE_ACTIVITY_LEARN:
+        case AppState::STATE_ACTIVITY_EXPERIMENT:
+            if (lastInput == UserInput::LONG_PRESS) {
                 current_state = AppState::STATE_MENU_PET;
             }
             break;

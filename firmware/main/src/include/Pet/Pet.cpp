@@ -1,6 +1,7 @@
 #include <cmath>
 #include <cstdlib>
 #include <Arduino.h>
+#include "../../wififeatures\wififeatures.h"
 //#include eeprom
 
 #include "Pet.h"

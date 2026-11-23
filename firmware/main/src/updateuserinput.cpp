@@ -9,6 +9,9 @@ void updateUserInput() {
   static bool lastRawState[] = {HIGH, HIGH, HIGH};
   static bool stableState[] = {HIGH, HIGH, HIGH};
   static unsigned long lastStateChange[] = {0, 0, 0};
+  static unsigned long selectPressedAt = 0;
+  static bool selectLongPressSent = false;
+  const unsigned long longPressDuration = 800;
   const uint8_t buttonPins[] = {BTN_LEFT, BTN_RIGHT, BTN_SELECT};
   const UserInput buttonInputs[] = {
     UserInput::LEFT,
@@ -28,9 +31,26 @@ void updateUserInput() {
     if (now - lastStateChange[i] >= 30 && rawState != stableState[i]) {
       stableState[i] = rawState;
       if (stableState[i] == LOW) {
-        lastInput = buttonInputs[i];
+        if (i == 2) {
+          selectPressedAt = now;
+          selectLongPressSent = false;
+        } else {
+          lastInput = buttonInputs[i];
+          break;
+        }
+      } else if (i == 2 && !selectLongPressSent) {
+        lastInput = now - selectPressedAt >= longPressDuration
+          ? UserInput::LONG_PRESS
+          : UserInput::PRESS;
         break;
       }
+    }
+
+    if (i == 2 && stableState[i] == LOW && !selectLongPressSent &&
+        now - selectPressedAt >= longPressDuration) {
+      selectLongPressSent = true;
+      lastInput = UserInput::LONG_PRESS;
+      break;
     }
   }
 }

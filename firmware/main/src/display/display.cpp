@@ -50,3 +50,16 @@ void drawBitmapPageWithLabel(const unsigned char bitmap[1024], const char* label
   }
   display.display();
 }
+
+void drawTextPage(const char* title, const char* const lines[], unsigned int lineCount){
+  display.clearDisplay();
+  display.setTextSize(1);
+  display.setTextColor(SH110X_WHITE);
+  display.setCursor(0, 0);
+  display.print(title);
+  for (unsigned int i = 0; i < lineCount; ++i) {
+    display.setCursor(0, 12 + i * 10);
+    display.print(lines[i]);
+  }
+  display.display();
+}
