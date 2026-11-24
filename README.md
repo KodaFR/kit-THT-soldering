@@ -134,24 +134,70 @@ les boutons de la carte :
 
 | Bouton | Action |
 | --- | --- |
-| ⏺️ **Central** | Quitter l’accueil, puis faire progresser l’éclosion de l’œuf. |
-| ◀️ **Gauche** | Revenir à l’écran de menu précédent. |
-| ▶️ **Droit** | Passer à l’écran de menu suivant. |
+| ⏺️ **Central** | Appui court : sélectionner ou effectuer une action. Appui long : revenir au menu. |
+| ◀️ **Gauche** | Parcourir le menu vers la gauche ; dans **Jouer**, jouer à gauche. |
+| ▶️ **Droit** | Parcourir le menu vers la droite ; dans **Jouer**, jouer à droite. |
 
-🥚 **Pour commencer :** appuyez une fois au centre pour quitter l’accueil, puis
-appuyez encore quatre fois pour faire éclore l’œuf. Dans le menu, gauche et
-droite font défiler les écrans : santé, compétences, statistiques, argent,
-animal, nourrir, apprendre, jouer et expérimenter.
-
-> 🚧 **État du firmware :** les écrans sont affichés et peuvent être parcourus.
-> Les actions détaillées des menus ne sont pas encore reliées à une sélection.
+🥚 **Pour commencer :** appuyez au centre pour quitter l’accueil, puis appuyez
+quatre fois au centre pour faire éclore l’œuf. Utilisez ensuite gauche et droite
+pour parcourir le menu. Un appui court au centre ouvre l’écran sélectionné ;
+un appui long au centre revient au menu depuis une activité ou un écran de
+statistiques.
 
 <a id="guide-de-jeu"></a>
 ## 📖 Guide de jeu
 
-- 🥚 Une fois le jeu démarré, un œuf s’affiche. Aidez-le à éclore en appuyant
-  quatre fois sur le bouton central.
-- ⏳ Toutes les 5 minutes, il prend un an.
+### Comprendre les boutons
+
+| Commande | Action |
+| --- | --- |
+| ◀️ Gauche / ▶️ Droit dans le menu | Parcourir les pages du menu. |
+| ⏺️ Appui court au centre | Ouvrir une page, effectuer une action ou fermer une fenêtre. |
+| ⏺️ Appui long au centre | Revenir au menu depuis une activité ou les statistiques. |
+| ◀️ + ▶️ dans **Jouer** | Jouer du côté gauche, du côté droit ou des deux côtés simultanément. |
+
+### Activités et récompenses
+
+- **Apprendre :** après une seconde, une anecdote éducative apparaît. Un appui
+  court la ferme ; l’appui suivant affiche une autre anecdote. Chaque appui
+  dans cette activité compte comme une leçon : environ **5 leçons** donnent
+  **1 point de culture** et chaque leçon rapporte **2 pièces**.
+- **Jouer :** appuyez sur gauche, droite ou les deux boutons latéraux. Chaque
+  action compte comme une partie ; environ **50 parties** donnent **1 point de
+  bonheur**.
+- **Expérimenter :** l’activité lance une recherche des réseaux Wi-Fi proches.
+  La fenêtre de résultat indique les réseaux trouvés et la créativité gagnée.
+  Chaque réseau contribue à la créativité ; le talent du compagnon peut faire
+  varier légèrement la progression. Chaque tranche de **4 réseaux trouvés dans
+  une recherche** rapporte **1 pièce**. Fermez le résultat avec le bouton
+  central ; un nouvel appui lance une autre recherche.
+- **Nourrir :** un repas coûte **15 pièces**. Appuyez trois fois au centre pour
+  manger la pomme ; le compagnon gagne jusqu’à **3 points de faim**, sans
+  dépasser le maximum de **5**. Le résultat indique le gain réel. Un compagnon
+  déjà rassasié ne peut pas manger.
+
+Les talents sont légèrement aléatoires : les seuils de culture et de bonheur
+peuvent donc varier de quelques actions d’un compagnon à l’autre.
+
+### Argent, faim et santé
+
+- Le moyen le plus régulier de gagner de l’argent est **Apprendre** :
+  **2 pièces par leçon**. L’expérimentation peut aussi rapporter une pièce par
+  tranche de quatre réseaux trouvés pendant une recherche.
+- La faim commence à **5** et baisse d’un point toutes les **5 minutes**. Le
+  compagnon prend également un an toutes les 5 minutes.
+- La santé est comprise entre **0 et 5**. Si la faim vaut **0**, la santé baisse
+  d’un point toutes les 5 minutes. Si la faim vaut **5** au moment d’une mise à
+  jour, la santé remonte d’un point ; avec toute autre valeur, elle ne change
+  pas.
+- À **0 santé**, le compagnon meurt. La mélodie de défaite est jouée, puis une
+  nouvelle partie commence avec un nouvel œuf.
+
+### Code secret
+
+Sur la page **Animal** du menu, appuyez simultanément sur les trois boutons
+(gauche, centre et droit) pour tuer instantanément le compagnon. La mélodie de
+défaite joue, puis le jeu recommence avec un nouvel œuf.
 
 <a id="depannage"></a>
 ## 🛠️ Dépannage

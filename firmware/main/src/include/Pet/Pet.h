@@ -15,7 +15,7 @@ class Pet {
     ~Pet();
 
     void learn(int points);
-    bool eat(int points);
+    int eat(int points);
     void play(int points);
     int experiment(int points);
     void update();
@@ -32,7 +32,7 @@ class Pet {
         float experimentProgress;
         float playProgress;
 
-        int lastAgeMillis; //Derniere actualisation de l'age (en ms)
+        unsigned long lastUpdateMillis;
 
 
 };

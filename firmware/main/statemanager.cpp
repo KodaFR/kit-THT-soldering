@@ -208,6 +208,8 @@ void beginEatActivity() {
     eatResultVisible = false;
     if (myPet == nullptr) {
         showEatMessage("SANS COMPAGNON", "Aucun compagnon a nourrir.");
+    } else if (myPet->hunger >= 5) {
+        showEatMessage("RASASIE", "La faim est deja au maximum.");
     } else if (myPet->money < 15) {
         showEatMessage("PAS DE NOURRITURE", "Il faut 15 pieces.");
     }
@@ -234,11 +236,18 @@ void handleEatActivity(UserInput input) {
         showEatMessage("PAS DE NOURRITURE", "Il faut 15 pieces.");
         return;
     }
+    if (myPet->hunger >= 5) {
+        showEatMessage("RASASIE", "La faim est deja au maximum.");
+        return;
+    }
 
     ++eatBites;
     if (eatBites == 3) {
-        if (myPet->eat(3)) {
-            showEatMessage("REPAS", "Faim +3");
+        const int hungerGained = myPet->eat(3);
+        if (hungerGained > 0) {
+            char mealMessage[32];
+            snprintf(mealMessage, sizeof(mealMessage), "Faim +%d", hungerGained);
+            showEatMessage("REPAS", mealMessage);
         } else {
             showEatMessage("REPAS IMPOSSIBLE", "Le repas n'a pas abouti.");
         }
@@ -352,6 +361,21 @@ void updateExperimentActivity(UserInput input) {
             startExperimentScan();
         }
     }
+}
+
+void restartWithNewEgg() {
+    delete myPet;
+    myPet = nullptr;
+    current_egg_state = EggState::NEW;
+    current_state = AppState::STATE_MENU_EGG;
+    menuPageIndex = 0;
+    playBitmap = play_both_bitmap;
+    resetLearnActivity();
+    eatBites = 0;
+    eatResultVisible = false;
+    experimentScanActive = false;
+    experimentResultVisible = false;
+    experimentExitAfterScan = false;
 }
 }
 
@@ -473,7 +497,12 @@ void stateManager(){
             }
             break;
         case AppState::STATE_MENU_PET:
-            if (lastInput == UserInput::LEFT) {
+            if (lastInput == UserInput::ALL &&
+                menuPages[menuPageIndex].state == AppState::STATE_MENU_PET &&
+                myPet != nullptr) {
+                myPet->health = 0;
+                current_state = AppState::STATE_MENU_DEAD;
+            } else if (lastInput == UserInput::LEFT) {
                 menuPageIndex = (menuPageIndex + menuPageCount - 1) % menuPageCount;
             } else if (lastInput == UserInput::RIGHT) {
                 menuPageIndex = (menuPageIndex + 1) % menuPageCount;
@@ -540,11 +569,16 @@ void stateManager(){
             break;
         case AppState::STATE_MENU_DEAD:
             playDeathMelody();
+            restartWithNewEgg();
             break;
         default:
             break;
     }
-    if (current_egg_state == EggState::HATCHED && myPet != nullptr){
+    if (current_egg_state == EggState::HATCHED && myPet != nullptr &&
+        current_state != AppState::STATE_MENU_DEAD) {
         myPet->update();
+        if (myPet->health <= 0) {
+            current_state = AppState::STATE_MENU_DEAD;
+        }
     }
 }

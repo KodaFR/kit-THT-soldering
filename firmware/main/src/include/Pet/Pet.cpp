@@ -22,7 +22,8 @@ Pet::Pet(float talent_learn, float talent_experiment, float talent_play)
       play_coef(randomizeTalent(talent_play)),
       learnProgress(0.0f),
       experimentProgress(0.0f),
-      playProgress(0.0f)
+      playProgress(0.0f),
+      lastUpdateMillis(millis())
 {
     this-> health = 5;
     this ->level = 0;
@@ -33,8 +34,6 @@ Pet::Pet(float talent_learn, float talent_experiment, float talent_play)
     this->happyness = 0;
     this->creativity = 0;
     this->money = 0;
-
-    this->lastAgeMillis = 5*60*1000; //Le compagnon prend 1 an après 5 minutes et non dès sa naissance
 
     Serial.println("L'objet Pet a été créé");
 }
@@ -51,13 +50,17 @@ void Pet::learn(int points){
     }
     this->money += 2;
 }
-bool Pet::eat(int points){
-    if (points <= 0 || this->money < 15) {
-        return false;
+int Pet::eat(int points){
+    if (points <= 0 || this->money < 15 || this->hunger >= 5) {
+        return 0;
     }
+    const int previousHunger = this->hunger;
     this->hunger += points;
+    if (this->hunger > 5) {
+        this->hunger = 5;
+    }
     this->money -= 15;
-    return true;
+    return this->hunger - previousHunger;
 }
 void Pet::play(int points){
     playProgress += points * (play_coef / baseTalentCoefficient);
@@ -78,11 +81,24 @@ int Pet::experiment(int points){
 }
 
 void Pet::update(){
-    if(millis() - this->lastAgeMillis >= 5*60*1000){// on incrémente de 1 an toutes les 5 minutes
-        this->lastAgeMillis = millis();
-        this->age ++;
-        Serial.println("Joyeux annviersaire! Votre compagnon a maintenant: ");
-        Serial.print(this->age);
-        Serial.println(" ans!");
+    const unsigned long fiveMinutes = 5UL * 60UL * 1000UL;
+    const unsigned long now = millis();
+    while (now - lastUpdateMillis >= fiveMinutes) {
+        lastUpdateMillis += fiveMinutes;
+        ++age;
+        Serial.println("Joyeux anniversaire ! Votre compagnon a maintenant :");
+        Serial.print(age);
+        Serial.println(" ans !");
+
+        if (hunger == 0) {
+            if (health > 0) {
+                --health;
+            }
+        } else if (hunger == 5 && health < 5) {
+            ++health;
+        }
+        if (hunger > 0) {
+            --hunger;
+        }
     }
 }

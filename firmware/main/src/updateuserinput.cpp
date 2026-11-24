@@ -14,6 +14,7 @@ void updateUserInput() {
   const unsigned long longPressDuration = 800;
   const uint8_t buttonPins[] = {BTN_LEFT, BTN_RIGHT, BTN_SELECT};
   bool leftOrRightPressed[2] = {false, false};
+  bool selectPressedDown = false;
   bool selectReleased = false;
   const unsigned long now = millis();
   lastInput = UserInput::NONE;
@@ -31,6 +32,7 @@ void updateUserInput() {
         if (i == 2) {
           selectPressedAt = now;
           selectLongPressSent = false;
+          selectPressedDown = true;
         } else {
           leftOrRightPressed[i] = true;
         }
@@ -49,7 +51,16 @@ void updateUserInput() {
   const bool bothButtonsDown =
     (stableState[0] == LOW && stableState[1] == LOW) ||
     (digitalRead(buttonPins[0]) == LOW && digitalRead(buttonPins[1]) == LOW);
-  if ((leftOrRightPressed[0] || leftOrRightPressed[1]) && bothButtonsDown) {
+  const bool allButtonsDown =
+    (stableState[0] == LOW && stableState[1] == LOW && stableState[2] == LOW) ||
+    (digitalRead(buttonPins[0]) == LOW &&
+     digitalRead(buttonPins[1]) == LOW &&
+     digitalRead(buttonPins[2]) == LOW);
+  const bool anyButtonPressed =
+    leftOrRightPressed[0] || leftOrRightPressed[1] || selectPressedDown;
+  if (allButtonsDown && anyButtonPressed) {
+    lastInput = UserInput::ALL;
+  } else if ((leftOrRightPressed[0] || leftOrRightPressed[1]) && bothButtonsDown) {
     lastInput = UserInput::BOTH;
   } else if (leftOrRightPressed[0]) {
     lastInput = UserInput::LEFT;
