@@ -17,16 +17,20 @@ class Pet {
     void learn(int points);
     bool eat(int points);
     void play(int points);
-    void experiment(int points);
+    int experiment(int points);
     void update();
 
     void save_stats();
 
     private: // Randomly generated stats at booting
 
-        const int learn_coef;
-        const int experiment_coef;
-        const int play_coef;
+        const float learn_coef;
+        const float experiment_coef;
+        const float play_coef;
+
+        float learnProgress;
+        float experimentProgress;
+        float playProgress;
 
         int lastAgeMillis; //Derniere actualisation de l'age (en ms)
 

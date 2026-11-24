@@ -6,6 +6,7 @@
 #include "src/buzzer/buzzer.h"
 #include "src/lights/lights.h"
 #include "src/include/Pet/pet.h"
+#include "src/wififeatures/wififeatures.h"
 #include <stdio.h>
 
 AppState current_state = AppState::STATE_BOOT;
@@ -34,6 +35,35 @@ const MenuPage menuPages[] = {
 const unsigned int menuPageCount = sizeof(menuPages) / sizeof(menuPages[0]);
 unsigned int menuPageIndex = 0;
 const unsigned char* playBitmap = play_both_bitmap;
+
+const char* techFacts[] = {
+    "Huit bits forment un octet, soit un caractere ASCII simple.",
+    "Une LED emet de la lumiere quand le courant traverse son semi-conducteur.",
+    "Un transistor agit comme un minuscule interrupteur. Les puces en contiennent des milliards.",
+    "Un condensateur stocke l'energie electrique et peut lisser une tension.",
+    "Le Wi-Fi transmet des donnees par ondes radio, presque a la vitesse de la lumiere.",
+    "La RAM est une memoire temporaire : elle perd ses donnees sans alimentation.",
+    "Un microcontroleur combine processeur, memoire et broches d'entree-sortie.",
+    "Le binaire utilise seulement 0 et 1. Chaque chiffre binaire est un bit."
+};
+const unsigned int techFactCount = sizeof(techFacts) / sizeof(techFacts[0]);
+int currentTechFactIndex = -1;
+bool learnFactPending = false;
+bool learnFactVisible = false;
+bool learnFactDismissed = false;
+unsigned long learnFactDueAt = 0;
+
+unsigned int eatBites = 0;
+bool eatResultVisible = false;
+const char* eatResultTitle = "REPAS";
+char eatResultMessage[48] = {};
+
+bool experimentScanActive = false;
+bool experimentResultVisible = false;
+bool experimentExitAfterScan = false;
+unsigned long experimentScanStartedAt = 0;
+const char* experimentResultTitle = "RESULTATS WI-FI";
+char experimentResultMessage[64] = {};
 
 const unsigned char* petMenuBitmap() {
     static const unsigned char* currentBitmap = need_play_bitmap;
@@ -64,15 +94,6 @@ void renderMenuPage(const MenuPage& page) {
 
 void renderPageForState(AppState state) {
     switch (state) {
-    case AppState::STATE_ACTIVITY_EAT:
-        drawBitmapPage(need_food_bitmap);
-        return;
-    case AppState::STATE_ACTIVITY_LEARN:
-        drawBitmapPage(activity_learn_bitmap);
-        return;
-    case AppState::STATE_ACTIVITY_EXPERIMENT:
-        drawBitmapPage(activity_experiment_bitmap);
-        return;
     case AppState::STATE_ACTIVITY_PLAY:
         drawBitmapPage(playBitmap);
         return;
@@ -146,7 +167,93 @@ void renderPageForState(AppState state) {
     }
 }
 
+void showNextTechFact() {
+    long nextIndex = random(static_cast<long>(techFactCount));
+    if (nextIndex == currentTechFactIndex) {
+        nextIndex = (nextIndex + 1) % techFactCount;
+    }
+    currentTechFactIndex = static_cast<int>(nextIndex);
+    learnFactVisible = true;
+    learnFactPending = false;
+}
+
+void beginLearnActivity() {
+    currentTechFactIndex = -1;
+    learnFactPending = true;
+    learnFactVisible = false;
+    learnFactDismissed = false;
+    learnFactDueAt = millis() + 1000;
+}
+
+void resetLearnActivity() {
+    learnFactPending = false;
+    learnFactVisible = false;
+    learnFactDismissed = false;
+}
+
+void updateLearnActivity() {
+    if (learnFactPending && static_cast<long>(millis() - learnFactDueAt) >= 0) {
+        showNextTechFact();
+    }
+}
+
+void showEatMessage(const char* title, const char* message) {
+    eatResultTitle = title;
+    snprintf(eatResultMessage, sizeof(eatResultMessage), "%s", message);
+    eatResultVisible = true;
+}
+
+void beginEatActivity() {
+    eatBites = 0;
+    eatResultVisible = false;
+    if (myPet == nullptr) {
+        showEatMessage("SANS COMPAGNON", "Aucun compagnon a nourrir.");
+    } else if (myPet->money < 15) {
+        showEatMessage("PAS DE NOURRITURE", "Il faut 15 pieces.");
+    }
+}
+
+void handleEatActivity(UserInput input) {
+    if (input == UserInput::LONG_PRESS) {
+        current_state = AppState::STATE_MENU_PET;
+        eatResultVisible = false;
+        return;
+    }
+    if (input != UserInput::PRESS) {
+        return;
+    }
+    if (eatResultVisible) {
+        beginEatActivity();
+        return;
+    }
+    if (myPet == nullptr) {
+        showEatMessage("SANS COMPAGNON", "Aucun compagnon a nourrir.");
+        return;
+    }
+    if (myPet->money < 15) {
+        showEatMessage("PAS DE NOURRITURE", "Il faut 15 pieces.");
+        return;
+    }
+
+    ++eatBites;
+    if (eatBites == 3) {
+        if (myPet->eat(3)) {
+            showEatMessage("REPAS", "Faim +3");
+        } else {
+            showEatMessage("REPAS IMPOSSIBLE", "Le repas n'a pas abouti.");
+        }
+    }
+}
+
 void handlePlayInput(UserInput input) {
+    if (input == UserInput::LEFT || input == UserInput::RIGHT || input == UserInput::BOTH) {
+        if (myPet == nullptr) {
+            Serial.println("Impossible de jouer sans compagnon");
+            return;
+        }
+        myPet->play(1);
+    }
+
     switch (input) {
     case UserInput::LEFT:
         playBitmap = play_left_bitmap;
@@ -168,6 +275,82 @@ void handlePlayInput(UserInput input) {
         break;
     default:
         break;
+    }
+}
+
+void showExperimentError(const char* message) {
+    experimentResultTitle = "ERREUR WI-FI";
+    snprintf(experimentResultMessage, sizeof(experimentResultMessage), "%s", message);
+    experimentResultVisible = true;
+}
+
+void finishExperimentScan(int scannedNetworks) {
+    experimentScanActive = false;
+    deleteWifiScanResults();
+    if (myPet == nullptr) {
+        showExperimentError("Compagnon indisponible.");
+    } else if (scannedNetworks < 0) {
+        showExperimentError("L'analyse Wi-Fi a echoue.");
+    } else {
+        const int creativityGained = myPet->experiment(scannedNetworks);
+        experimentResultTitle = "RESULTATS WI-FI";
+        snprintf(
+            experimentResultMessage,
+            sizeof(experimentResultMessage),
+            "Reseaux trouves : %d\nCreativite +%d",
+            scannedNetworks,
+            creativityGained
+        );
+        experimentResultVisible = true;
+    }
+
+    if (experimentExitAfterScan) {
+        current_state = AppState::STATE_MENU_PET;
+        experimentExitAfterScan = false;
+        experimentResultVisible = false;
+    }
+}
+
+void startExperimentScan() {
+    if (myPet == nullptr) {
+        showExperimentError("Compagnon indisponible.");
+        return;
+    }
+
+    deleteWifiScanResults();
+    experimentResultVisible = false;
+    const int status = startWifiScan();
+    if (status == -1) {
+        experimentScanActive = true;
+        experimentScanStartedAt = millis();
+    } else if (status < 0) {
+        showExperimentError("Impossible de lancer l'analyse Wi-Fi.");
+    } else {
+        finishExperimentScan(status);
+    }
+}
+
+void updateExperimentActivity(UserInput input) {
+    if (experimentScanActive) {
+        if (input == UserInput::LONG_PRESS) {
+            experimentExitAfterScan = true;
+        }
+        const int result = pollWifiScan();
+        if (result != -1) {
+            finishExperimentScan(result);
+        }
+        return;
+    }
+
+    if (input == UserInput::LONG_PRESS) {
+        current_state = AppState::STATE_MENU_PET;
+        experimentResultVisible = false;
+    } else if (input == UserInput::PRESS) {
+        if (experimentResultVisible) {
+            experimentResultVisible = false;
+        } else {
+            startExperimentScan();
+        }
     }
 }
 }
@@ -218,11 +401,31 @@ void renderUI(){
     case AppState::STATE_STATS_PET:
     case AppState::STATE_STATS_MONEY:
     case AppState::STATE_MENU_STATS_PET:
-    case AppState::STATE_ACTIVITY_EAT:
     case AppState::STATE_ACTIVITY_PLAY:
-    case AppState::STATE_ACTIVITY_LEARN:
-    case AppState::STATE_ACTIVITY_EXPERIMENT:
         renderPageForState(current_state);
+        break;
+    case AppState::STATE_ACTIVITY_EAT:
+        if (eatResultVisible) {
+            drawPopupPage(eatResultTitle, eatResultMessage);
+        } else {
+            drawEatActivityFrame(pet_menu_bitmap, eatBites);
+        }
+        break;
+    case AppState::STATE_ACTIVITY_LEARN:
+        if (learnFactVisible) {
+            drawPopupPage("LE SAVIEZ-VOUS ?", techFacts[currentTechFactIndex]);
+        } else {
+            drawBitmapPage(activity_learn_bitmap);
+        }
+        break;
+    case AppState::STATE_ACTIVITY_EXPERIMENT:
+        if (experimentScanActive) {
+            drawRadioScanFrame((millis() - experimentScanStartedAt) / 100);
+        } else if (experimentResultVisible) {
+            drawPopupPage(experimentResultTitle, experimentResultMessage);
+        } else {
+            drawBitmapPage(activity_experiment_bitmap);
+        }
         break;
     case AppState::STATE_MENU_DEAD:
         drawBitmapPage(dead_pet_bitmap);
@@ -281,6 +484,15 @@ void stateManager(){
                         playBitmap = play_both_bitmap;
                         setColorLeft(0, 0, 0);
                         setColorRight(0, 0, 0);
+                    } else if (current_state == AppState::STATE_ACTIVITY_EAT) {
+                        beginEatActivity();
+                    } else if (current_state == AppState::STATE_ACTIVITY_LEARN) {
+                        beginLearnActivity();
+                    } else if (current_state == AppState::STATE_ACTIVITY_EXPERIMENT) {
+                        experimentScanActive = false;
+                        experimentResultVisible = false;
+                        experimentExitAfterScan = false;
+                        startExperimentScan();
                     }
                 }
             }
@@ -290,12 +502,34 @@ void stateManager(){
         case AppState::STATE_STATS_PET:
         case AppState::STATE_STATS_MONEY:
         case AppState::STATE_MENU_STATS_PET:
-        case AppState::STATE_ACTIVITY_EAT:
-        case AppState::STATE_ACTIVITY_LEARN:
-        case AppState::STATE_ACTIVITY_EXPERIMENT:
             if (lastInput == UserInput::LONG_PRESS) {
                 current_state = AppState::STATE_MENU_PET;
             }
+            break;
+        case AppState::STATE_ACTIVITY_EAT:
+            handleEatActivity(lastInput);
+            break;
+        case AppState::STATE_ACTIVITY_LEARN:
+            updateLearnActivity();
+            if (lastInput == UserInput::LONG_PRESS) {
+                current_state = AppState::STATE_MENU_PET;
+                resetLearnActivity();
+            } else if (lastInput == UserInput::PRESS) {
+                if (myPet != nullptr) {
+                    myPet->learn(1);
+                } else {
+                    Serial.println("Impossible d'apprendre sans compagnon");
+                }
+                if (learnFactVisible) {
+                    learnFactVisible = false;
+                    learnFactDismissed = true;
+                } else if (learnFactDismissed) {
+                    showNextTechFact();
+                }
+            }
+            break;
+        case AppState::STATE_ACTIVITY_EXPERIMENT:
+            updateExperimentActivity(lastInput);
             break;
         case AppState::STATE_ACTIVITY_PLAY:
             if (lastInput == UserInput::LONG_PRESS) {
