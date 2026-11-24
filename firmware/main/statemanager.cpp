@@ -33,12 +33,53 @@ const MenuPage menuPages[] = {
 };
 const unsigned int menuPageCount = sizeof(menuPages) / sizeof(menuPages[0]);
 unsigned int menuPageIndex = 0;
+const unsigned char* playBitmap = play_both_bitmap;
+
+const unsigned char* petMenuBitmap() {
+    static const unsigned char* currentBitmap = need_play_bitmap;
+    static unsigned long nextBitmapChange = 0;
+    const unsigned long now = millis();
+    if (static_cast<long>(now - nextBitmapChange) >= 0) {
+        const bool foodIsLow = myPet != nullptr && myPet->hunger <= 2;
+        const long choice = random(foodIsLow ? 3 : 2);
+        if (foodIsLow && choice == 2) {
+            currentBitmap = need_food_bitmap;
+        } else if (choice == 0) {
+            currentBitmap = need_play_bitmap;
+        } else {
+            currentBitmap = need_interrogation_bitmap;
+        }
+        nextBitmapChange = now + 3000;
+    }
+    return currentBitmap;
+}
 
 void renderMenuPage(const MenuPage& page) {
-    drawBitmapPageWithLabel(page.bitmap, page.label, page.acuteAccentIndex);
+    if (page.state == AppState::STATE_MENU_PET) {
+        drawBitmapPage(petMenuBitmap());
+    } else {
+        drawBitmapPageWithLabel(page.bitmap, page.label, page.acuteAccentIndex);
+    }
 }
 
 void renderPageForState(AppState state) {
+    switch (state) {
+    case AppState::STATE_ACTIVITY_EAT:
+        drawBitmapPage(need_food_bitmap);
+        return;
+    case AppState::STATE_ACTIVITY_LEARN:
+        drawBitmapPage(activity_learn_bitmap);
+        return;
+    case AppState::STATE_ACTIVITY_EXPERIMENT:
+        drawBitmapPage(activity_experiment_bitmap);
+        return;
+    case AppState::STATE_ACTIVITY_PLAY:
+        drawBitmapPage(playBitmap);
+        return;
+    default:
+        break;
+    }
+
     for (unsigned int i = 0; i < menuPageCount; ++i) {
         const MenuPage& page = menuPages[i];
         if (page.state != state) {
@@ -104,17 +145,44 @@ void renderPageForState(AppState state) {
         return;
     }
 }
+
+void handlePlayInput(UserInput input) {
+    switch (input) {
+    case UserInput::LEFT:
+        playBitmap = play_left_bitmap;
+        setColorLeft(255, 0, 0);
+        setColorRight(0, 0, 0);
+        playLeftMelody();
+        break;
+    case UserInput::RIGHT:
+        playBitmap = play_right_bitmap;
+        setColorLeft(0, 0, 0);
+        setColorRight(0, 0, 255);
+        playRightMelody();
+        break;
+    case UserInput::BOTH:
+        playBitmap = play_both_bitmap;
+        setColorLeft(0, 255, 0);
+        setColorRight(0, 255, 0);
+        playBothMelody();
+        break;
+    default:
+        break;
+    }
+}
 }
 
 
 
 void renderUI(){
-    if (current_egg_state == EggState::HATCHED) {
-        setColorLeft(173, 216, 230);
-        setColorRight(173, 216, 230);
-    } else {
-        setColorLeft(255, 255, 255);
-        setColorRight(255, 255, 255);
+    if (current_state != AppState::STATE_ACTIVITY_PLAY) {
+        if (current_egg_state == EggState::HATCHED) {
+            setColorLeft(173, 216, 230);
+            setColorRight(173, 216, 230);
+        } else {
+            setColorLeft(255, 255, 255);
+            setColorRight(255, 255, 255);
+        }
     }
 
     switch (current_state)
@@ -157,7 +225,7 @@ void renderUI(){
         renderPageForState(current_state);
         break;
     case AppState::STATE_MENU_DEAD:
-        drawBitmapPage(egg4_bitmap);
+        drawBitmapPage(dead_pet_bitmap);
         break;
     
     default:
@@ -207,7 +275,14 @@ void stateManager(){
             } else if (lastInput == UserInput::RIGHT) {
                 menuPageIndex = (menuPageIndex + 1) % menuPageCount;
             } else if (lastInput == UserInput::PRESS) {
-                current_state = menuPages[menuPageIndex].state;
+                if (menuPages[menuPageIndex].state != AppState::STATE_MENU_PET) {
+                    current_state = menuPages[menuPageIndex].state;
+                    if (current_state == AppState::STATE_ACTIVITY_PLAY) {
+                        playBitmap = play_both_bitmap;
+                        setColorLeft(0, 0, 0);
+                        setColorRight(0, 0, 0);
+                    }
+                }
             }
             break;
         case AppState::STATE_STATS_HEALTH:
@@ -216,11 +291,17 @@ void stateManager(){
         case AppState::STATE_STATS_MONEY:
         case AppState::STATE_MENU_STATS_PET:
         case AppState::STATE_ACTIVITY_EAT:
-        case AppState::STATE_ACTIVITY_PLAY:
         case AppState::STATE_ACTIVITY_LEARN:
         case AppState::STATE_ACTIVITY_EXPERIMENT:
             if (lastInput == UserInput::LONG_PRESS) {
                 current_state = AppState::STATE_MENU_PET;
+            }
+            break;
+        case AppState::STATE_ACTIVITY_PLAY:
+            if (lastInput == UserInput::LONG_PRESS) {
+                current_state = AppState::STATE_MENU_PET;
+            } else {
+                handlePlayInput(lastInput);
             }
             break;
         case AppState::STATE_MENU_DEAD:

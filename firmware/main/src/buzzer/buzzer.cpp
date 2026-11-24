@@ -48,3 +48,17 @@ void playHatchMelody() {
 
   noTone(BUZZER);
 }
+
+void playLeftMelody() {
+  tone(BUZZER, 440, 180);
+}
+
+void playRightMelody() {
+  tone(BUZZER, 659, 180);
+}
+
+void playBothMelody() {
+  tone(BUZZER, 523, 120);
+  delay(140);
+  tone(BUZZER, 784, 180);
+}

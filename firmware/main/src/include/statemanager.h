@@ -3,6 +3,7 @@ enum class UserInput {
     NONE,
     LEFT, 
     RIGHT, 
+    BOTH,
     PRESS,
     LONG_PRESS,
 };
